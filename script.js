@@ -8,6 +8,32 @@ const logoutBtn = document.getElementById("logout-btn");
 const sidebarButtons = document.querySelectorAll(".side-btn");
 const contentPanels = document.querySelectorAll(".content-panel");
 
+document.getElementById("login-form").addEventListener("submit", async function(e) {
+  e.preventDefault();  // ne frissüljön az oldal!
+
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
+  const institute = document.getElementById("institute").value;
+
+  const response = await fetch("https://etabla.onrender.com/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ username, password, institute })
+  });
+
+  const data = await response.json();
+
+  if (data.success) {
+    // Sikeres login, megjelenítjük az adatokat
+    showDashboard(data.data);
+  } else {
+    alert("Hiba a bejelentkezéskor: " + data.error);
+  }
+});
+
+
 let currentUser = null;
 let instituteCode = null;
 

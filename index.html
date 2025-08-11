@@ -3,86 +3,111 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>e-Tábla</title>
-  <!-- Tailwind CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="style.css" />
+  <title>e-Tábla Bejelentkezés</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    #container {
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      width: 320px;
+    }
+    input {
+      width: 100%;
+      padding: 0.5rem;
+      margin: 0.5rem 0 1rem 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    button {
+      width: 100%;
+      padding: 0.7rem;
+      background-color: #2e86de;
+      border: none;
+      border-radius: 4px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #1b4f72;
+    }
+    #dashboard {
+      margin-top: 1rem;
+    }
+  </style>
 </head>
-<body class="bg-gray-100 min-h-screen flex flex-col">
+<body>
 
-  <!-- Login panel -->
-  <div id="login-panel" class="max-w-md mx-auto mt-20 p-6 bg-white rounded-lg shadow-lg">
-    <h1 class="text-3xl font-bold mb-6 text-center text-indigo-600">e-Tábla Bejelentkezés</h1>
-    <form id="login-form" class="space-y-4">
-      <input
-        type="text"
-        id="username"
-        placeholder="Felhasználónév"
-        class="w-full px-4 py-2 border rounded focus:outline-indigo-500"
-        required
-      />
-      <input
-        type="password"
-        id="password"
-        placeholder="Jelszó"
-        class="w-full px-4 py-2 border rounded focus:outline-indigo-500"
-        required
-      />
-      <input
-        type="text"
-        id="institute"
-        placeholder="Intézmény kód"
-        class="w-full px-4 py-2 border rounded focus:outline-indigo-500"
-        required
-      />
-      <button
-        type="submit"
-        class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded font-semibold transition"
-      >
-        Bejelentkezés
-      </button>
-      <p id="login-error" class="text-red-600 mt-2 hidden"></p>
-    </form>
-  </div>
+<div id="container">
+  <form id="login-form">
+    <h2>e-Tábla Bejelentkezés</h2>
+    <input id="username" type="text" placeholder="Felhasználónév" required />
+    <input id="password" type="password" placeholder="Jelszó" required />
+    <input id="institute" type="text" placeholder="Intézmény kód" required />
+    <button type="submit">Bejelentkezés</button>
+  </form>
 
-  <!-- Main UI, hidden login után -->
-  <div id="main-ui" class="hidden flex flex-col min-h-screen">
-    <header class="bg-indigo-700 text-white p-4 flex justify-between items-center">
-      <h2 class="text-xl font-semibold" id="welcome-msg">Üdvözöl az e-Tábla, Felhasználó!</h2>
-      <button id="logout-btn" class="bg-indigo-500 hover:bg-indigo-600 px-3 py-1 rounded">Kijelentkezés</button>
-    </header>
+  <div id="dashboard" style="display:none;"></div>
+</div>
 
-    <div class="flex flex-grow overflow-hidden">
-      <!-- Sidebar -->
-      <nav id="sidebar" class="w-64 bg-white border-r p-4 flex flex-col space-y-4">
-        <button data-panel="evaluations" class="side-btn bg-indigo-100 text-indigo-700 rounded px-3 py-2 font-semibold hover:bg-indigo-200">Értékelések</button>
-        <button data-panel="absences" class="side-btn px-3 py-2 hover:bg-indigo-100 rounded">Hiányzások</button>
-        <button data-panel="timetable" class="side-btn px-3 py-2 hover:bg-indigo-100 rounded">Órarend</button>
-        <button data-panel="tests" class="side-btn px-3 py-2 hover:bg-indigo-100 rounded">Dolgozatok & Házi</button>
-      </nav>
+<script>
+  document.getElementById("login-form").addEventListener("submit", async function(e) {
+    e.preventDefault(); // Megakadályozzuk az oldal frissülését
 
-      <!-- Content -->
-      <main class="flex-grow p-6 overflow-auto bg-gray-50">
-        <section id="evaluations" class="content-panel">
-          <h3 class="text-2xl font-bold mb-4 text-indigo-700">Értékelések</h3>
-          <div id="evaluations-list" class="space-y-2"></div>
-        </section>
-        <section id="absences" class="content-panel hidden">
-          <h3 class="text-2xl font-bold mb-4 text-red-600">Hiányzások</h3>
-          <div id="absences-list" class="space-y-2"></div>
-        </section>
-        <section id="timetable" class="content-panel hidden">
-          <h3 class="text-2xl font-bold mb-4 text-green-600">Órarend</h3>
-          <div id="timetable-list" class="space-y-2"></div>
-        </section>
-        <section id="tests" class="content-panel hidden">
-          <h3 class="text-2xl font-bold mb-4 text-purple-600">Dolgozatok és Házi Feladatok</h3>
-          <div id="tests-list" class="space-y-2"></div>
-        </section>
-      </main>
-    </div>
-  </div>
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value.trim();
+    const institute = document.getElementById("institute").value.trim();
 
-  <script src="script.js"></script>
+    if (!username || !password || !institute) {
+      alert("Kérlek, tölts ki minden mezőt!");
+      return;
+    }
+
+    try {
+      const response = await fetch("https://etabla.onrender.com/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ username, password, institute })
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        showDashboard(data.data);
+      } else {
+        alert("Hiba a bejelentkezéskor: " + (data.error || "Ismeretlen hiba"));
+      }
+    } catch (err) {
+      alert("Nem sikerült kapcsolódni a szerverhez.");
+      console.error(err);
+    }
+  });
+
+  function showDashboard(userData) {
+    document.getElementById("login-form").style.display = "none";
+    const dash = document.getElementById("dashboard");
+    dash.style.display = "block";
+    dash.innerHTML = `
+      <h2>Üdvözöl az e-Tábla, ${userData.username || "Felhasználó"}!</h2>
+      <p>Intézmény: ${userData.institute || "Ismeretlen"}</p>
+      <p>További funkciók hamarosan...</p>
+      <button onclick="location.reload()">Kijelentkezés</button>
+    `;
+  }
+</script>
+
 </body>
 </html>

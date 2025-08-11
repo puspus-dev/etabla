@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>e-Tábla</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="login-container" id="login-container">
+    <h1>e-Tábla</h1>
+    <p class="subtitle">Szebb, gyorsabb és egyszerűbb e-Kréta alternatíva</p>
+    <input type="text" id="username" placeholder="Felhasználónév">
+    <input type="password" id="password" placeholder="Jelszó">
+    <input type="text" id="institute" placeholder="Intézmény kód">
+    <button onclick="login()">Bejelentkezés</button>
+    <p id="error" class="error"></p>
+  </div>
+
+  <div class="dashboard hidden" id="dashboard">
+    <div class="top-bar">
+      <h2>Üdv, <span id="student-name"></span> az e-Táblában!</h2>
+      <button class="logout-btn" onclick="logout()">Kijelentkezés</button>
+    </div>
+
+    <div class="tabs">
+      <button onclick="showTab('grades')">Értékelések</button>
+      <button onclick="showTab('timetable')">Órarend</button>
+      <button onclick="showTab('homework')">Házi feladatok</button>
+    </div>
+
+    <div id="grades" class="tab-content">
+      <h3>Legutóbbi értékelések</h3>
+      <ul id="evaluations-list"></ul>
+    </div>
+
+    <div id="timetable" class="tab-content hidden">
+      <h3>Órarend</h3>
+      <ul id="timetable-list"></ul>
+    </div>
+
+    <div id="homework" class="tab-content hidden">
+      <h3>Házi feladatok</h3>
+      <ul id="homework-list"></ul>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,57 +1,88 @@
 <!DOCTYPE html>
 <html lang="hu">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>e-Tábla</title>
-  <link rel="stylesheet" href="style.css">
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body>
-  <div class="login-container" id="login-container">
-    <h1>e-Tábla</h1>
-    <p class="subtitle">Szebb, gyorsabb és egyszerűbb e-Kréta alternatíva</p>
-    <input type="text" id="username" placeholder="Felhasználónév">
-    <input type="password" id="password" placeholder="Jelszó">
-    <input type="text" id="institute" placeholder="Intézmény kód">
-    <button onclick="login()">Bejelentkezés</button>
-    <p id="error" class="error"></p>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+
+  <!-- Login panel -->
+  <div id="login-panel" class="max-w-md mx-auto mt-20 p-6 bg-white rounded-lg shadow-lg">
+    <h1 class="text-3xl font-bold mb-6 text-center text-indigo-600">e-Tábla Bejelentkezés</h1>
+    <form id="login-form" class="space-y-4">
+      <input
+        type="text"
+        id="username"
+        placeholder="Felhasználónév"
+        class="w-full px-4 py-2 border rounded focus:outline-indigo-500"
+        required
+      />
+      <input
+        type="password"
+        id="password"
+        placeholder="Jelszó"
+        class="w-full px-4 py-2 border rounded focus:outline-indigo-500"
+        required
+      />
+      <input
+        type="text"
+        id="institute"
+        placeholder="Intézmény kód"
+        class="w-full px-4 py-2 border rounded focus:outline-indigo-500"
+        required
+      />
+      <button
+        type="submit"
+        class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded font-semibold transition"
+      >
+        Bejelentkezés
+      </button>
+      <p id="login-error" class="text-red-600 mt-2 hidden"></p>
+    </form>
   </div>
 
-  <div class="dashboard hidden" id="dashboard">
-    <div class="top-bar">
-      <h2>Üdv, <span id="student-name"></span> az e-Táblában!</h2>
-      <button class="logout-btn" onclick="logout()">Kijelentkezés</button>
-    </div>
+  <!-- Main UI, hidden login után -->
+  <div id="main-ui" class="hidden flex flex-col min-h-screen">
+    <header class="bg-indigo-700 text-white p-4 flex justify-between items-center">
+      <h2 class="text-xl font-semibold" id="welcome-msg">Üdvözöl az e-Tábla, Felhasználó!</h2>
+      <button id="logout-btn" class="bg-indigo-500 hover:bg-indigo-600 px-3 py-1 rounded">Kijelentkezés</button>
+    </header>
 
-    <div class="tabs">
-      <button onclick="showTab('grades')">Értékelések</button>
-      <button onclick="showTab('timetable')">Órarend</button>
-      <button onclick="showTab('homework')">Házi feladatok</button>
-    </div>
+    <div class="flex flex-grow overflow-hidden">
+      <!-- Sidebar -->
+      <nav id="sidebar" class="w-64 bg-white border-r p-4 flex flex-col space-y-4">
+        <button data-panel="evaluations" class="side-btn bg-indigo-100 text-indigo-700 rounded px-3 py-2 font-semibold hover:bg-indigo-200">Értékelések</button>
+        <button data-panel="absences" class="side-btn px-3 py-2 hover:bg-indigo-100 rounded">Hiányzások</button>
+        <button data-panel="timetable" class="side-btn px-3 py-2 hover:bg-indigo-100 rounded">Órarend</button>
+        <button data-panel="tests" class="side-btn px-3 py-2 hover:bg-indigo-100 rounded">Dolgozatok & Házi</button>
+      </nav>
 
-    <div id="grades" class="tab-content">
-      <h3>Legutóbbi értékelések</h3>
-      <ul id="evaluations-list"></ul>
-    </div>
-
-    <div id="timetable" class="tab-content hidden">
-      <h3>Órarend</h3>
-      <ul id="timetable-list"></ul>
-    </div>
-
-    <div id="homework" class="tab-content hidden">
-      <h3>Házi feladatok</h3>
-      <ul id="homework-list"></ul>
+      <!-- Content -->
+      <main class="flex-grow p-6 overflow-auto bg-gray-50">
+        <section id="evaluations" class="content-panel">
+          <h3 class="text-2xl font-bold mb-4 text-indigo-700">Értékelések</h3>
+          <div id="evaluations-list" class="space-y-2"></div>
+        </section>
+        <section id="absences" class="content-panel hidden">
+          <h3 class="text-2xl font-bold mb-4 text-red-600">Hiányzások</h3>
+          <div id="absences-list" class="space-y-2"></div>
+        </section>
+        <section id="timetable" class="content-panel hidden">
+          <h3 class="text-2xl font-bold mb-4 text-green-600">Órarend</h3>
+          <div id="timetable-list" class="space-y-2"></div>
+        </section>
+        <section id="tests" class="content-panel hidden">
+          <h3 class="text-2xl font-bold mb-4 text-purple-600">Dolgozatok és Házi Feladatok</h3>
+          <div id="tests-list" class="space-y-2"></div>
+        </section>
+      </main>
     </div>
   </div>
 
   <script src="script.js"></script>
-  <form id="loginForm">
-  <input id="username" type="text" placeholder="Felhasználónév" required />
-  <input id="password" type="password" placeholder="Jelszó" required />
-  <input id="institute" type="text" placeholder="Intézmény kód" required />
-  <button type="submit">Bejelentkezés</button>
-</form>
-<script src="script.js"></script>
 </body>
 </html>

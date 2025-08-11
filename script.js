@@ -141,4 +141,6 @@ async function loadTimetable() {
     const el = document.createElement("div");
     el.className = "p-4 bg-white rounded shadow";
     el.innerHTML = `<div class="font-semibold"></div>`;
-    });
+    list.appendChild(el);
+  });
+}

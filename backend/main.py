@@ -2,8 +2,8 @@ from flask import Flask, request, jsonify
 from ekreta import User
 from flask_cors import CORS
 
-app = Flask(__name__)
-CORS(app)  # hogy a frontendről is elérd
+app = Flask(__name__, static_folder='.')
+CORS(app)
 
 @app.route("/login", methods=["POST"])
 def login():

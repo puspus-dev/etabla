@@ -91,4 +91,38 @@ async function loadHomework() {
     li.textContent = `${hw.TantargyNeve}: ${hw.FeladatLeiras}`;
     list.appendChild(li);
   });
+
 }
+document.getElementById("loginForm").addEventListener("submit", async function(e) {
+  e.preventDefault(); // ne frissüljön az oldal
+
+  const username = document.getElementById("username").value.trim();
+  const password = document.getElementById("password").value.trim();
+  const institute = document.getElementById("institute").value.trim();
+
+  if (!username || !password || !institute) {
+    alert("Kérlek tölts ki minden mezőt!");
+    return;
+  }
+
+  try {
+    const response = await fetch("https://etabla.onrender.com/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ username, password, institute })
+    });
+    const data = await response.json();
+
+    if (data.success) {
+      alert("Sikeres bejelentkezés!");
+      console.log(data.data);
+      // Itt jöhet a további UI logika
+    } else {
+      alert("Hiba: " + data.error);
+    }
+  } catch (err) {
+    alert("Hálózati hiba: " + err.message);
+  }
+});

@@ -1,2 +1,2 @@
-# etabla
-ekreta.py : https://github.com/bczsalba
+# e-Tábla
+e-Kréta másolat.

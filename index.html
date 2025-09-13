@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>e-Tábla - e-Kréta alternatíva</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Roboto', sans-serif; background-color: #f7f9fc; color: #333; }
+
+a { text-decoration: none; color: inherit; }
+
+header {
+    background: linear-gradient(135deg, #4a90e2, #50e3c2);
+    color: white;
+    text-align: center;
+    padding: 100px 20px 60px;
+}
+header h1 { font-size: 3.5rem; margin-bottom: 20px; }
+header p { font-size: 1.2rem; max-width: 700px; margin: 0 auto; }
+
+.hero-btn {
+    margin-top: 30px;
+    padding: 18px 40px;
+    font-size: 1.2rem;
+    background-color: #fff;
+    color: #4a90e2;
+    border-radius: 12px;
+    font-weight: bold;
+    transition: transform 0.2s, background-color 0.3s, color 0.3s;
+    display: inline-block;
+}
+.hero-btn:hover { background-color: #357abd; color: #fff; transform: translateY(-3px); }
+
+main { max-width: 1000px; margin: -40px auto 60px; padding: 0 20px; }
+
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px;
+    margin: 60px 0;
+}
+.feature-card {
+    background: white;
+    padding: 40px 20px;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    transition: transform 0.3s;
+}
+.feature-card:hover { transform: translateY(-5px); }
+.feature-card i { font-size: 3rem; color: #4a90e2; margin-bottom: 20px; }
+.feature-card h3 { font-size: 1.5rem; margin-bottom: 10px; }
+.feature-card p { color: #555; font-size: 1rem; }
+
+.screenshots {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto 80px;
+}
+.screenshots img {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    display: none;
+}
+.screenshots img.active { display: block; }
+.screenshot-btns {
+    text-align: center;
+    margin-top: 20px;
+}
+.screenshot-btns button {
+    padding: 8px 15px;
+    margin: 0 5px;
+    border: none;
+    border-radius: 8px;
+    background-color: #4a90e2;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.3s;
+}
+.screenshot-btns button:hover { background-color: #357abd; transform: translateY(-2px); }
+
+.download-section {
+    background-color: #50e3c2;
+    padding: 60px 20px;
+    border-radius: 20px;
+    text-align: center;
+    color: white;
+    margin-bottom: 60px;
+}
+.download-section h2 { font-size: 2rem; margin-bottom: 15px; }
+.download-section p { margin-bottom: 30px; font-size: 1.1rem; }
+.download-buttons a {
+    display: inline-block;
+    padding: 15px 30px;
+    margin: 10px;
+    background-color: #4a90e2;
+    color: white;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: transform 0.2s, background-color 0.3s;
+}
+.download-buttons a:hover { background-color: #357abd; transform: translateY(-3px); }
+
+footer {
+    text-align: center;
+    padding: 30px;
+    font-size: 0.9rem;
+    color: #777;
+    background-color: #f1f3f6;
+}
+</style>
+</head>
+<body>
+
+<header>
+    <h1>e-Tábla</h1>
+    <p>Az e-Kréta egyszerű, gyors és modern alternatívája, amely minden eszközön működik.</p>
+    <a href="#download" class="hero-btn">Töltsd le most</a>
+</header>
+
+<main>
+<section class="features">
+    <div class="feature-card">
+        <i class="fa fa-chalkboard-teacher"></i>
+        <h3>Digitális napló</h3>
+        <p>Könnyedén nyomon követheted az órákat, házi feladatokat és jegyeket.</p>
+    </div>
+    <div class="feature-card">
+        <i class="fa fa-lock"></i>
+        <h3>Biztonságos</h3>
+        <p>Az adataid biztonságban vannak, és csak te férhetsz hozzájuk.</p>
+    </div>
+    <div class="feature-card">
+        <i class="fa fa-bolt"></i>
+        <h3>Gyors és egyszerű</h3>
+        <p>Az e-Tábla gyors, könnyen kezelhető és mindig kéznél van.</p>
+    </div>
+</section>
+
+<section class="screenshots">
+    <img src="screenshot1.png" class="active" alt="e-Tábla screenshot 1">
+    <img src="screenshot2.png" alt="e-Tábla screenshot 2">
+    <img src="screenshot3.png" alt="e-Tábla screenshot 3">
+    <div class="screenshot-btns">
+        <button onclick="showScreenshot(0)">1</button>
+        <button onclick="showScreenshot(1)">2</button>
+        <button onclick="showScreenshot(2)">3</button>
+    </div>
+</section>
+
+<section class="download-section" id="download">
+    <h2>Töltsd le az e-Táblát!</h2>
+    <p>Válaszd ki az eszközöd és kezd el használni az e-Táblát.</p>
+    <div class="download-buttons">
+        <a href="#" download><i class="fa fa-android"></i> Android</a>
+        <a href="#" download><i class="fa fa-apple"></i> iOS</a>
+    </div>
+</section>
+</main>
+
+<footer>
+    &copy; 2025 e-Tábla. Minden jog fenntartva.
+</footer>
+
+<script>
+let current = 0;
+const screenshots = document.querySelectorAll('.screenshots img');
+function showScreenshot(index) {
+    screenshots[current].classList.remove('active');
+    screenshots[index].classList.add('active');
+    current = index;
+}
+</script>
+
+</body>
+</html>
